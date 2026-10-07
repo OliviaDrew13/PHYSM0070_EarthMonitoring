@@ -1,0 +1,19 @@
+Questions to ask in the first 30 (wont ask all of these but are good prompts if I get stuck in the convo lol):
+
+- Request a data sample
+- What is the aim of the project
+- What do they need out of me
+- What is the scope of the project?
+- Project requirements
+	- What is the end goal of the analytics
+	- What types of analytics are they looking for
+	- What do they want the model to be able to predict
+	- What are the key aspects of the prediction they want me to focus on (is reliable long term time dependence a higher priority to short term time dependence)
+	- What do you want predicted, what do you want this prediction to be based off of
+- What does the data itself look like
+	- Is it time dependent
+	- Is there a periodic nature to it
+	- How many parameters are we looking at
+- Is there anything in particular you don't want done with the data
+	- Are there any goals you want ignored
+	- Is there any data you would consider irrelevant
