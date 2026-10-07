@@ -3,6 +3,7 @@ Questions to ask in the first 30 (wont ask all of these but are good prompts if 
 - Request a data sample
 - What is the aim of the project
 - What do they need out of me
+- What is the scope of the project?
 - Project requirements
 	- What is the end goal of the analytics
 	- What types of analytics are they looking for
