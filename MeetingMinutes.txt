@@ -10,6 +10,7 @@ Questions to ask in the first 30 (wont ask all of these but are good prompts if 
 	- What do they want the model to be able to predict
 	- What are the key aspects of the prediction they want me to focus on (is reliable long term time dependence a higher priority to short term time dependence)
 	- What do you want predicted, what do you want this prediction to be based off of
+	- Prioritise speed? Accuracy?
 - What does the data itself look like
 	- Is it time dependent
 	- Is there a periodic nature to it
@@ -23,3 +24,42 @@ Questions to ask in the first 30 (wont ask all of these but are good prompts if 
 Admin questions (if able)
 - GitHub: private vs public
 - Report guidance
+
+Responses:
+
+Identify wildfires, probability of having a wildfire - region of my choice
+region size is up to me to define, certain areas may be better suited than others
+
+short vs long term + probability, depends on data
+- might not be able to extrapolate far in future
+- give advantages and disadvantages in the three options, include this
+
+work within computing limitations of blue pebble, time limitations is up to me
+- my output is to do with the prediction model, not to do with the time it takes to run it
+
+have to download data from archive directly to blue pebble
+
+no particular aspects they are looking for, just looking for a system that predicts
+- think about goals of real life people
+
+generic approach
+
+what are you looking for in report
+- detailed enough to assess
+- including hardware requirements, need for system administrator
+
+sample sent immediately, link to onedrive folder
+- 25yrs worth of data in archives, sample is only one day
+- archive has wonderful visualisation
+
+baseline
+- just probability for wildfire to occur
+
+if possible, size, intensity ect would be good to predict
+
+can communicate with colleagues and email if required for clarification
+
+
+
+
+
