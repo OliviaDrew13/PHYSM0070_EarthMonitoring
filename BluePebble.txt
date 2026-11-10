@@ -1,0 +1,58 @@
+Things to remember:
+- numpy and similar are core hungry, see lec 4 for how to control this (or look up)
+- Only run jobs through queue system and compute nodes
+- Need to use scp (secure copy) to get data on/off BluePebble
+- make a note of the job ID number
+- check for parallelisation and array jobs
+- include useful feedback commands in SLURM script
+- ref card is saved locally on Linux
+- MUST HAVE PROJECT CODE (SEE BLACKBOARD)
+
+Reading through the ACRC HPC docs to figure out how BluePebble works and how i should be interfacing with it.
+
+System Layout:
+- Login Nodes: How we connect to the system. Basic tasks: data uploading, file management, software compilation, script editing, checking/managing jobs. DO NOT RUN JOBS HERE.
+- Compute Nodes: All jobs run here using the queueing system
+
+Connecting:
+- Login nodes are accessed in a 'round robin' fashion
+- Use ssh to login, username provided on Blackboard
+- Need to use VPN
+
+Storage:
+- File store quota, limit to the amount of data we can store
+- Home Directories: Source code, application settings, submisison scripts. 25GB storage size and 450k file number limits
+- Work space (scratch space): Space for large input/output datasets. 1TB storage size and 950k file number limits
+- check quota using user-quota
+
+Transferring Data (NEEDED for Earth Monitoring data):
+- need to use scp (secure copy), uses the same security protocols as ssh
+- step by step explaination on docs, follow this
+
+Software:
+- use 'module spider' to show a complete list of all installed software and 'module spider [name]' to get more details on a particular package
+- This seems complicated
+
+Scheduler:
+- fair use policy
+- matches resources to those required to run a particular job
+- maintains a queue, may run immediately or when away from a screen
+- plan ahead for running jobs, they wont run instantly and will take a while
+- SLURM: write a shell script w/ commands which tell it how to run your code, then pass to sbatch
+- https://slurm.schedmd.com/archive/slurm-16.05.8/sbatch.html
+- LEARN SLURM
+
+Job Types:
+- many different types of jobs
+- Follow the steps in First Job Script for useful information
+- Running the same script with minor changes can be done in a single job
+- We can check in on memory utilisation and use that to better define job requirements and give us better wait times
+
+FAQs:
+- run smaller jobs to get an idea of how resources scale
+
+Python specific:
+- "check_python [NAME]" can be used to cehck for specfic modules which contain libraries (can take a min-two to run
+- can check to see if a module has a specific library
+- the application specific information walks you through how to SLURM python files :D
+

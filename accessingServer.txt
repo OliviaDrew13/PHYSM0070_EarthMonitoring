@@ -1,0 +1,10 @@
+VPN access: required for all HPC access
+
+- Open a browser and navigate to https://uobnet2.bristol.ac.uk. Note: Chrome and Firefox typically provide the best results.
+- Log into the University of Bristol sign-in page if you are prompted.
+- Follow the prompts to install the F5 Network Access application.
+- If you are not prompted to install the Network Access application, please click UoB Access portal to proceed.
+- You must browse to https://uobnet2.bristol.ac.uk each time you wish to initiate a connection.
+
+
+
