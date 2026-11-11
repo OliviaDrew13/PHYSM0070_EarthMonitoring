@@ -1,0 +1,15 @@
+Data Processing:
+- Clustering
+- Dimensionality Reduction
+- Cartographical Plotting
+
+Next Steps:
+- Read up on and compare methods of
+    - Fitting
+    - Clustering
+    - Dimensionality Reduction
+    - Cartographical Plotting
+    - Machine Learning
+- Install vscodium
+
+
