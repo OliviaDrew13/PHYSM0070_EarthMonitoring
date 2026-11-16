@@ -1,0 +1,7 @@
+Looking at geospatial plotting libraries:
+
+"cartopy" is looking promising, based off of matplotlib so familiar formatting and context
+https://cartopy.readthedocs.io/stable/getting_started/index.html
+
+can plot based off of latitude/longitude, useful!
+
