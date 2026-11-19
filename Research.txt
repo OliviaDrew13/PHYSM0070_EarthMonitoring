@@ -1,0 +1,303 @@
+TO DO: email about dataset choice
+
+Can pick what country I want to use to build the model
+- UK, but wildfires aren't Massively common here. could make getting enough data for reliable prediction difficult, small climate range, small country so less data to sort through, home
+- Europe, more wildfires, larger area so bigger climate and data range, still close to home
+- America, wide range of climates and areas, prone to fires, large area
+- Australia, prone to fires, smaller range of climates but smaller area than Europe/America, 'reversed' seasons
+
+Data types needed:
+- temp
+- humidity
+- rain
+- wind direction
+- proximity to nearby water source
+- vegetation density
+- fuel moisture
+
+Data visualisation ideas:
+- wildfires vs rain in mm for the past month?
+- wildfires vs ave daytime temperature
+- wildfire spread vs wind direction?
+- wildfires vs humidity
+- wildfire start location plotted with area burnt and average wind direction?
+
+What do the clients actually want?
+- Predictive model for wildfires
+
+What do I need to include/consider?
+- spread - windspeed, rain, temperature, humidity
+- start - rain, temperature, humidity
+
+Note: its looking like im going to need to consider the past conditions as well as the conditions of the day (like how dry the foliage has been ect)
+- longer 'negative conditions' will cause higher fire probability, cumulative effects!
+- need to find a model which accounts for that properly
+
+How to do hardware considerations?
+- amount of data used
+- Cores, GPU, RAM
+- different models need different amounts
+
+How do we get it to do '2D' analysis (we care about WHERE a lot)
+
+
+Papers to read:
+A comprehensive survey of the machine learning pipeline for wildfire risk prediction and assessment: https://www.sciencedirect.com/science/article/pii/S1574954125003346
+- READ MORE INDEPTH WHEN HANDLING SPECIFIC THINGS
+- Traditional approaches: statistical models, empirical indices, rule-based systems, physics-based simulations
+- Machine learning pipeline: data acquisition, pre-processing, feature extraction, model training, and post-processing
+- Diverse datatypes: climatic, topographic, vegetation, anthropogenic, and historical fire information
+- Pre-processing - cleaning, normalising, temporally aligning, missing values, checks for consistency and imbalance
+- Has information on primary datasets and derived datasets, sources of data
+- Not just climate data, need to consider whether scaling to other data sets would be useful
+	- vegetation
+	- topological
+	- landcover
+	- fuel moisture content (most important)
+- spatial preprocessing: harmonising differing spatial resolutions, coord systems and geometries. common steps: resampling, coord system standardisation, geometric correction
+- temporal preprocessing: synchronising time series, interpolating missing data, normalising seasonal fluctuations
+- feature scaling and normalisation: comparability across variables
+- data augmentation: useful in wildfire research with limited data (note: use an area without limited data)
+- Feature extraction:
+	- Short term meteorological variables: humidity, windspeed, temperature, direction, rain
+	- Long term meteorological variables: fuel accumulation, vegetation dynamics, duration of fire season
+	- drought codes, aridity index, heatwave index, drought severity index, cumulative rainfall deficit, windspeed contribution, initial spread index
+- addressing collinearity is VERY IMPORTANT as multiple indexes convey overlapping data
+- correlation analysis
+
+A list of things I might need to do to the data
+- preprocess data: clean, normalise, temporally align, handle missing values, check for data consistency and balance
+- assess multicollinearity
+	- correlation analysis: id and eliminate highly correlated variables
+	- variance inflation factor and tolerance
+- dimensionality reduction
+	- principle component analysis
+	- reduce correlated variables
+	- reduced interpretability
+	- not needed with autoencoders
+- regularisation techniques
+	- constrain complexity, reduce overfitting, handle collinearity
+	- Lasso regression (L1)
+	- Ridge regression (L2)
+	- ElasticNet
+- Recursive feature elimination
+	- iteratively removes the least important variables based on model performance
+	- accounts for feature interactions within models like Random Forest, SVM, Gradient boosting
+
+
+A list of possible models
+- Autoencoders: offer a non-linear alternative to PCA, efficient representation of complex environmental patterns
+	- convolutional and recurrent have been applied to this, enhancing predictive performance, reducing memory usage and training time
+- Random Forest
+- SVM
+- Gradient boost
+
+Unsupervised learning
+- useful in identifying hidden patterns or groups w/in data
+- clustering
+	- Fuzzy C-Means: S. Zolghadri, M. Ghodskhah Daryaei, K. Nasirahmadi, E. Ghajar Uncovering the hidden patterns of fire risks: A cluster analysis approach (k-medoids and fcm) for Hyrcanian forest in Iran
+	- K-Medoids: S. Zolghadri, M. Ghodskhah Daryaei, K. Nasirahmadi, E. Ghajar Uncovering the hidden patterns of fire risks: A cluster analysis approach (k-medoids and fcm) for Hyrcanian forest in Iran
+	- DBSCAN: M.T. Anwar, W. Hadikurniawati, E. Winarno, A. Supriyanto Wildfire risk map based on dbscan clustering and cluster density evaluation
+	-  SCMC
+- anomaly detection: identify unusual events or regions exhibiting atypical wildfire risk patterns
+- require high-quality, comprehensive data
+- often lack interpretability
+- clustering can rely on subjective parameter choice
+- deep autoencoders can struggle with large datasets
+- lack of ground truth makes model validation inputs difficult
+- traditional evaluation metrics (Davies-Bouldin index) may not always align with real-world relevance
+
+Supervised learning (traditional methods)
+- commonly framed as a classification task to predict whether specific locations are prone to fires
+	- we could provide an option for risk classification: very low, low, moderate, high, very high
+	- how without our own labels?
+	- tbf wed have data on when wildfires are, so maybe probability based: x% probability is low risk ect
+	- how do we get a probability prediction from a model
+- Logistic regression
+- Random forests
+- Naïve Bayes classifiers
+- support vector machines
+- SVM
+- Ensemble techniques have also been used, tend to outperform
+	- M.C. Iban, A. Sekertekin Machine learning based wildfire susceptibility mapping using remotely sensed fire data and gis: A case study of Adana and Mersin Provinces, Türkiye
+	- B.T. Pham, A. Jaafari, M. Avand, N. Al-Ansari, T.D. Du, H.P.H. Yen, T.V. Phong, D.H. Nguyen, H.V. Le, D. Mafi-Gholami, I. Prakash, H.T. Thuy, T.T. Tuyen Performance evaluation of machine learning methods for forest fire modeling and prediction
+- papers to follow up on:
+	- R. Gupta, H. Kim A geospatial approach to wildfire risk modeling using machine learning and remote sensing data
+	- L. Xie, R. Zhang, J. Zhan, S. Li, A. Shama, R. Zhan, T. Wang, J. Lv, X. Bao, R. Wu Wildfire risk assessment in liangshan prefecture, china based on an integration machine learning algorithm
+	- W. Chen, Y. Zhou, E. Zhou, Z. Xiang, W. Zhou, J. Lu Wildfire risk assessment of transmission-line corridors based on naïve bayes network and remote sensing data
+	- H. Liz-López, J. Huertas-Tato, J. Pérez-Aracil, C. Casanova-Mateo, J. Sanz-Justo, D. Camacho Spain on fire: A novel wildfire risk assessment model based on image satellite processing and atmospheric information
+	- T.T. Tuyen, A. Jaafari, H.P.H. Yen, T. Nguyen-Thoi, T.V. Phong, H.D. Nguyen, H.V. Le, T.T.M. Phuong, S.H. Nguyen, I. Prakash, B.T. Pham Mapping forest fire susceptibility using spatially explicit ensemble models based on the locally weighted learning algorithm
+	- M.C. Iban, A. Sekertekin Machine learning based wildfire susceptibility mapping using remotely sensed fire data and gis: A case study of Adana and Mersin Provinces, Türkiye
+	- M.C. Iban, A. Sekertekin Machine learning based wildfire susceptibility mapping using remotely sensed fire data and gis: A case study of Adana and Mersin Provinces, Türkiye
+
+Deep learning methods
+- Convolutional neural networks
+- recurrent neural networks
+- LSTMs
+- can handle complex relationships and large datasets
+- superior performance
+- more hardware intensive
+
+Spatial machine learning methods
+- integrate geographical context and spatial dependencies into predictive models
+- not assuming independence between data points, recognise spatial autocorrelation
+- high computational cost
+- parameter tuning to prevent overfitting
+- data quality issues
+- papers to look at:
+	- R. Gupta, H. Kim A geospatial approach to wildfire risk modeling using machine learning and remote sensing data
+	- T.T. Tuyen, A. Jaafari, H.P.H. Yen, T. Nguyen-Thoi, T.V. Phong, H.D. Nguyen, H.V. Le, T.T.M. Phuong, S.H. Nguyen, I. Prakash, B.T. Pham Mapping forest fire susceptibility using spatially explicit ensemble models based on the locally weighted learning algorithm
+	- L. He, A. Jeanneau, S. Ramsey, D.A.G. Radford, A.C. Zecchin, K. Reinke, S.D. Jones, H. van Delden, T. McNaught, S. Westra, H.R. Maier Estimating fuel load for wildfire risk assessment at regional scales using earth observation data: A case study in Southwestern Australia
+	- F. Huot, R.L. Hu, N. Goyal, T. Sankar, M. Ihme, Y.F. Chen Next day wildfire spread: A machine learning dataset to predict wildfire spreading from remote-sensing data
+
+Time series analysis and forecasting
+- essential for understanding the temporal dynamics of wildfire risk, seasonal patters and the progression of fire events
+- addressing the sequential nature, enables short-term forecasting and long-term risk assessment
+- Time Series Forest classifier
+	- N. Perello, G. Meschi, A. Trucchia, M. D’Andrea, F. Baghino, S.D. Esposti, P. Fiorucci Machine Learning-Driven Dynamic Maps Supporting Wildfire Risk Management, vol. 58, no. 6, Elsevier B.V. (2024), pp. 67-72
+- Logistic regression
+- Random forest
+- support vector machines
+- Artificial neural networks
+- K-nearest neighbours
+- Deep learning models offer significant improvement in capturing temporal and spatial patterns
+- tradiational methods tend to fall short in addressing complexities
+- tradiational models: more interpretable, may not capture complex temporal/spatial 
+- deep learning: large datasets, significant computational resources
+	- depends heavily on data quality 
+- papers to check out
+	- L. He, A. Jeanneau, S. Ramsey, D.A.G. Radford, A.C. Zecchin, K. Reinke, S.D. Jones, H. van Delden, T. McNaught, S. Westra, H.R. Maier Estimating fuel load for wildfire risk assessment at regional scales using earth observation data: A case study in Southwestern Australia
+	- A. Malik, M.R. Rao, N. Puppala, P. Koouri, V.A.K. Thota, Q. Liu, S. Chiao, J. Gao Data-driven wildfire risk prediction in Northern California
+	- W. Jiang, Y. Qiao, X. Zheng, J. Zhou, J. Jiang, Q. Meng, G. Su, S. Zhong, F. Wang Wildfire risk assessment using deep learning in Guangdong Province, China
+	- Y. Pang, Y. Li, Z. Feng, Z. Feng, Z. Zhao, S. Chen, H. Zhang Forest fire occurrence prediction in China based on machine learning methods
+
+Reinforcement learning
+- mainly for sequential decision making
+- not suitable for our applications
+
+Integrating w/ physics based/empirical models
+- physics models: simulate fire, apply laws, and inputs like fuel and topography. 
+- ML models - learn from large datasets, lack physical interpretability and generalisability
+- hybridisation can combine the pros/cons
+- pose many challenges
+- not massively applicable to our cases
+
+Fire susceptibility maps
+- convert continuous risk probabilities into risk levels/categories
+- visualise and communicate the spatial distribution of wildfire risk
+- threshold used to convert probabilities to risk catagories
+- regression models - output is typically a cont probability
+- each prediction or risk score corresponds to a specific geographic area
+- can use interpolation to find results for unsampled locations
+- can use smoothing methods
+- visualise using heatmaps (could include time-series maps, change in wildfire risk over time)
+- papers to check out:
+	- W. Yue, C. Ren, Y. Liang, J. Liang, X. Lin, A. Yin, Z. Wei Assessment of wildfire susceptibility and wildfire threats to ecological environment and urban development based on gis and multi-source data: A case study of Guilin, China
+	- T.T. Tuyen, A. Jaafari, H.P.H. Yen, T. Nguyen-Thoi, T.V. Phong, H.D. Nguyen, H.V. Le, T.T.M. Phuong, S.H. Nguyen, I. Prakash, B.T. Pham Mapping forest fire susceptibility using spatially explicit ensemble models based on the locally weighted learning algorithm
+
+Uncertainty quantification
+- Aleatoric uncertainty: inherent randomness
+- epistemic uncertainty: incomplete knowledge, model limitations, data scarcity
+- probabilistic methods: Bayesian inference, mixture density networks ect. probabilistic relationships/distributions
+- simulation-based techniques: model ensembles, sensitivity analysis. variability across model config, data samples, parameter settings
+- papers to check out
+	- M. Naderpour, H.M. Rizeei, F. Ramezani Wildfire prediction: Handling uncertainties using integrated Bayesian networks and fuzzy logic
+	- M. Abdar, F. Pourpanah, S. Hussain, D. Rezazadegan, L. Liu, M. Ghavamzadeh, P. Fieguth, X. Cao, A. Khosravi, U.R. Acharya, et al. A review of uncertainty quantification in deep learning: Techniques, applications and challenge
+	- E. Hüllermeier, W. Waegeman Aleatoric and epistemic uncertainty in machine learning: An introduction to concepts and methods
+	- T.D. Penman, B. Cirulis, B.G. Marcot Bayesian decision network modeling for environmental risk management: A wildfire case study
+	- K.C. Ujjwal, J. Hilton, S. Garg, J. Aryal A probability-based risk metric for operational wildfire risk management
+	- D. Cisneros, Y. Gong, R. Yadav, A. Hazra, R. Huser A combined statistical and machine learning approach for spatial prediction of extreme wildfire frequencies and sizes
+	- M. Rihan, A.A. Bindajam, S. Talukdar, M.W. Naikoo, J. Mallick, A. Rahman, et al. Forest fire susceptibility mapping with sensitivity and uncertainty analysis using machine learning and deep learning algorithms
+	- Q. He, Z. Jiang, M. Wang, K. Liu Landslide and wildfire susceptibility assessment in Southeast Asia using ensemble machine learning methods
+	- Z. Liu, K. Zhou, Q. Yao, P. Reszka An interpretable machine learning model for predicting forest fire danger based on Bayesian optimization
+
+Evaluation
+- depends on learning paradigm and task type
+- Clustering
+	- Silhouette Score, Davies–Bouldin Index, Dunn Index, and Adjusted Rand Index (ARI)
+- Anomaly detection
+	- precision, recall, and F1-score
+	- Area Under the Precision-Recall Curve (AUC-PR) and the Area Under the Receiver Operating Characteristic Curve (AUC-ROC) 
+- Classification
+	- accuracy, precision, recall, F1-score, and confusion matrices
+- Regression
+	- Mean Absolute Error (MAE), Mean Squared Error (MSE), and Root Mean Squared Error (RMSE)
+
+Data Limitations
+- geographic/ecosystem bias: publicly available datasets are geographically concentrated in certain area
+- anthropogenic bias: historical datasets overrepresent human developed areas and underrepresent remote areas. may associate fire risk with urban areas and underrepresent risk in ecologically prone areas
+- temporal resolution and alignment issues: different temporal resolutions and inconsistent update cycles pose major challenges
+	- Z. Xu, J. Li, S. Cheng, X. Rui, Y. Zhao, H. He, L. Xu Wildfire risk prediction: A review
+	- S. Hauser, L. Augner, A. Schmitt Perfect labelling: A review and outlook of label optimization techniques in dynamic earth observation
+
+Label quality and completeness
+- satellite-based datasets: rely on thermal anomaly detection, false +ves and -ves
+- small scale fires are frequently emitted from global datasets
+- label noise introduces significant uncertainty into model training and evaluation
+- can skew risk assessments
+- papers to checkout
+	- S. Yang, Q. Huang, M. Yu Advancements in remote sensing for active fire detection: a review of datasets and methods
+	- D. Van Wees, G.R. van Der Werf, J.T. Randerson, N. Andela, Y. Chen, D.C. Morton The role of fire in global forest loss dynamics
+
+Lack of standardised benchmarks
+- no universally adopted benchmarks
+- many datasets lack ground-truth verification or confidence scores
+- absence of human-verified fire reports or structured incident data (e.g., from forestry services or fire departments) reduces the reliability of long-term wildfire modelling efforts
+
+8.2. Feature importance across different wildfire scenarios: see table in https://www.sciencedirect.com/science/article/pii/S1574954125003346#b190
+- contains lots of information about which factors are more important depending on the climate, important for datasource choice
+
+A list of all possible contributing data sources to be pared down:
+- vegetation indices
+- land cover classifications, infrastructure (roads, buildings), administrative boundaries
+- topographic attributes: slope, aspect, elevation
+- temperature
+- humidity
+- rainfall
+- windspeed
+- wind direction
+- vegetation health
+- fuel load/accumulation
+- terrain
+- fuel moisture content
+- latitude and longitude
+- sunshine hours
+- evaporation
+- solar radiation
+- drought codes
+- aridity index
+- heatwave index
+- drought severity index
+- cumulative rainfall deficit
+- windspeed contribution
+- initial spread index
+- terrain ruggedness index
+- topographic position index
+- topographic wetness index
+- solar radiation index
+- stream power index 
+- hill shade
+- vegetation composition
+- NDVI
+- FMC
+- Dead fuel load
+- live fuel moisture
+- surface fuel load
+- vegetation height variation
+- fuel bed depth
+- vegetation species composition
+- fire history
+- urbanisation rate
+- building density
+- proximity to fire fighting resources
+- human activity index
+- 
+
+
+
+
+
+
+
+
+
