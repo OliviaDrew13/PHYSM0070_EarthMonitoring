@@ -1,1 +1,45 @@
 What am I going to do:
+
+Treat it as a classification problem:
+- based on a set of factors, what 'risk level' is the area
+- very low, low, medium, high, very high (confidence percentages, how do I get confidence percentages?)
+- implicit definition methods
+- represents a pseudo probability
+- how do I actually get the risk level out? do I use the frequency???
+
+Brief introduction to the problem
+- what, why
+- define the exact problem I am going to solve
+- brief graph on fire density, demonstrate the grid system
+- use a gridded risk system
+	- look at how these risk probabilities are defined normally
+- pugh matrix?
+
+Justify data choices
+- why are these factors important
+- use a table here
+
+Provide three options for the client
+- progressively increase computational intensity and accuracy (very related)
+- discuss computational resources
+- discuss parallelisability
+
+useful paper
+	- https://link.springer.com/article/10.1007/s11227-025-07632-w, A review of time series forecasting and spatio-temporal series forecasting in deep learning
+
+- classification: risk classifications, how likely is it to have a wildfire
+	- use frequency to define risk levels before training, use confidence to tell me how likely it is to be right
+	- OR don't use gridded data, use normal data and have it classify for yes/no wildfire
+- regression: regress based on frequency
+	- use frequency values to determine risk values
+
+Three types
+- Random Forest
+	- offer classification here
+	- https://www.sciencedirect.com/science/article/pii/S1569843224006733, SpatioTemporal Random Forest and SpatioTemporal Stacking Tree: A novel spatially explicit ensemble learning approach to modeling non-linearity in spatiotemporal non-stationarity
+- SVM
+	- regression here?
+	- https://www.sciencedirect.com/science/article/pii/S2666222121000046, Parallel SVM model for forest fire prediction
+- Spatial LSTM
+	- offer regression here
+	- https://www.sciencedirect.com/science/article/pii/S1574954122001376#s0015

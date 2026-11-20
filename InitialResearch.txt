@@ -6,6 +6,8 @@ Can pick what country I want to use to build the model
 - America, wide range of climates and areas, prone to fires, large area
 - Australia, prone to fires, smaller range of climates but smaller area than Europe/America, 'reversed' seasons
 
+Need to be able to save the model, so I can interpret data and plot without having to retrain
+
 Data types needed:
 - temp
 - humidity
@@ -116,8 +118,7 @@ Supervised learning (traditional methods)
 - Logistic regression
 - Random forests
 - Naïve Bayes classifiers
-- support vector machines
-- SVM
+- support vector machines, SVM
 - Ensemble techniques have also been used, tend to outperform
 	- M.C. Iban, A. Sekertekin Machine learning based wildfire susceptibility mapping using remotely sensed fire data and gis: A case study of Adana and Mersin Provinces, Türkiye
 	- B.T. Pham, A. Jaafari, M. Avand, N. Al-Ansari, T.D. Du, H.P.H. Yen, T.V. Phong, D.H. Nguyen, H.V. Le, D. Mafi-Gholami, I. Prakash, H.T. Thuy, T.T. Tuyen Performance evaluation of machine learning methods for forest fire modeling and prediction
@@ -246,6 +247,14 @@ Lack of standardised benchmarks
 
 8.2. Feature importance across different wildfire scenarios: see table in https://www.sciencedirect.com/science/article/pii/S1574954125003346#b190
 - contains lots of information about which factors are more important depending on the climate, important for datasource choice
+- UK is a temperate forest
+	- Seasonal Temperature Variability, Soil Moisture, Vegetation Type, Wind Patterns, Fire Suppression History
+
+Benchmarking
+- challenging due to variability in approach and datasets between research groups
+- can be done using comparison to a traditional wildfire simulation
+- 
+
 
 A list of all possible contributing data sources to be pared down:
 - vegetation indices
@@ -291,11 +300,11 @@ A list of all possible contributing data sources to be pared down:
 - building density
 - proximity to fire fighting resources
 - human activity index
+- hot spot data
+
+
+Reading up on the methods
 - 
-
-
-
-
 
 
 

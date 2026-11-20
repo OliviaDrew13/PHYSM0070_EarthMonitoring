@@ -1,0 +1,82 @@
+Machine Learning Methods
+
+Unsupervised learning;
+
+Clustering (NO): 
+
+- https://cjes.guilan.ac.ir/article_7977.html, https://cjes.guilan.ac.ir/article_7977_aa0ac1b21d0f849b4091619980af1349.pdf, Uncovering the hidden patterns of fire risks: A cluster analysis approach (K-Medoids and FCM) for Hyrcanian Forest in Iran
+- used a clustering based model, multilayer perceptron artificial neural network with backpropagation
+- used and compared two unsupervised clustering-specific procedures: Fuzzy C-Means (fully unsupervised), k-Medoids (supervised) (FCM, KM)
+- forecasting fire prone areas
+- doesn't include things like temperature and rainfall
+- evaluated using RMSE, R^2, MSE
+- high accuracy at predicting fire hazards
+- three primary criteria: environmental, climactic and human factors
+- ten sub-criteria
+- uses Pearson correlation coefficient to help ID the most valuable factors to include
+- allows for learning without pre-existing labels and minimal supervision
+- Three layers, 10 input nodes, 5 mid nodes, 1 final node
+- lots of context on the implementation of K-Medioids, can be intensive on large datasets but there are algorithms to help with that
+- FCM is particularly good for cases where the boundaries btwn clusters are not well defined, soft assignments to multiple clusters
+- has a Pearson correlation coefficient analysis table, can help with choice of environmental variable
+- does produce a confusion matrix
+- uses distance from cluster centre to define risk
+
+- https://www.sciencedirect.com/science/article/pii/S2666017226000611, FireCluster: A multi-source satellite active fire data clustering algorithm for comprehensive wildfire event identification
+- building upon ST-DBSCAN: https://www.sciencedirect.com/science/article/pii/S0169023X06000218, ST-DBSCAN: An algorithm for clustering spatial–temporal data
+- used for Identification and not Prediction
+
+- https://link.springer.com/chapter/10.1007/978-3-032-05772-3_3, A Data Science Solution for Analyzing and Clustering Wildfire Data to Support Environmental Analytics
+
+Machine Learning and Deep Learning
+- whatever i pick must be able to reasonably account for effects in a time series manner
+- must be able to handle the grid format i want to give it
+
+- https://www.sciencedirect.com/science/article/pii/S0924271625002217, Deep learning for wildfire risk prediction: Integrating remote sensing and environmental data
+
+- https://link.springer.com/article/10.1007/s11227-025-07632-w, A review of time series forecasting and spatio-temporal series forecasting in deep learning
+	- VERY USEFUL PAPER
+	- once ive decided on three anyway
+- XGBoost, SVM - support vector machine, MLP - multilayer perceptrons, LSTM, CNN, RF, KNN - K-Nearest Neighbour, GBDT - gradient,  
+- SVM
+	- supervised learning model initially used in binary classification
+	- aiming to find best hyperplane for separating different classes
+- SVM, KNN, RF and GBDT
+	- high data requirements, high computational resource requirements, low interpretability, sensitivity to noise and outliers, weak generalisation ability
+- in time series forecasting the common models are
+	- autoencoders, AE
+	- convolutional neural network, CNN
+	- recurrent neural network, RNN
+	- generative adversarial network, GAN
+	- graph neural network, GNN
+	- transformers
+Based on the research ive done so far and the above paper, now pick three lol:
+- A random forest variant, RF: https://www.sciencedirect.com/science/article/pii/S1569843224006733, SpatioTemporal Random Forest and SpatioTemporal Stacking Tree: A novel spatially explicit ensemble learning approach to modeling non-linearity in spatiotemporal non-stationarity
+- Gradient boosted decision tree variant, GBDT
+- RNN type network
+	- Spatial LSTM, https://www.sciencedirect.com/science/article/pii/S1574954122001376#s0015
+- Graph Neural Network, GNN
+	- maybe
+- hierarchical Bayesian methods combined with deep learning, Dynamic Bayesian Graph Convolutional Network (DBGCN)
+	- NO
+- Combined CNN and LSTM, ConvLSTM
+	- wont like the asymmetric grid behaviour
+	- don't use this one
+
+
+CNN
+
+SHAP analysis?
+
+Summary
+
+Mostly Unsupervised
+- 'simple' clustering algorithm
+- pros: good at handling spatial data
+- cons: doesn't provide a 'probability of fire' but based off distance to cluster centre
+- this means that each 'risk level' wouldn't mean the same thing for different datasets <- BIGGEST DRAWBACK
+- good for an idea of where things are most likely to catch light for different scenarios
+- good for an idea of where preventative measures could be taken, less good for accurate dynamic assessment of risks based on environmental conditions
+- NOT GOOD for climate data :(, which is what our brief is
+
+

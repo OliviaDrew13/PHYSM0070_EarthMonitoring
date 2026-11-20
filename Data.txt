@@ -1,0 +1,127 @@
+Data
+
+Determining dataset
+- UK
+- Combination of Ignition, Fuel and Weather
+- what factors do I have to include
+	- temperature
+	- latitude
+	- longitude
+	- humidity
+	- rainfall
+	- windspeed
+	- wildfire occurances
+- what factors could I include as well
+	- land cover classifications, what is the land used for
+	- human activity index
+	- dead fuel load/live fuel moisture
+	- population density
+	- hot spot data
+- locations for data
+	- earth data
+	- NASA
+	- see both assignment and initial review paper, to spend a morning collating
+
+
+Current list of data I want and why (by latitude and longitude):
+- wildfire occurrences (confidences if required)
+	- obvious
+- temperature
+	- affects range of conditions: fuel drying, ground temperature, often closely correlated with solar irradience
+- humidity
+	- a reasonable indicator of dryness of conditions, how dry is the soil, how dry is the vegetation, is there dew
+- rainfall
+	- how much moisture has been added overall
+- windspeed
+	- affects how fast fire can spread
+- population density
+	- https://www.ons.gov.uk/datasets/TS006/editions/2021/versions/4
+	- some people = higher ignition risk
+	- very dense = city, lower ignition risk
+- land cover classifications
+	- https://www.ceh.ac.uk/data/ukceh-land-cover-maps
+	- some correlation with pop density
+	- a decent amount of not correlated with pop density
+	- agricultural land burns like nobodies business, easier ignition
+
+
+wildfire occurrences:
+- is this ignition points
+- does this account for spread
+- do I need to include data for non-ignition points to create a balanced dataset? yes, so how?
+	- how do I do this?
+	- need labels: yes wildfire, no wildfire
+	- do using 1s and 0s?
+- OR use fire density, set up a grid system
+	- each grid section gets a number of how many fires occur over a full day-night cycle
+	- so some grid sections will have a zero
+	- this may be easier?
+	- will require more data processing I think as I would need to associate everything to this grid
+	- would make plotting easier?
+- currently leaning grid system, can have the end result being a grid ID and a probability
+	- use this to then assign a risk
+	- DOES NOT ACCOUNT FOR CONFIDENCE IN IDENFICATION
+	- could use a weighting system for this?
+
+conversion to grid (~the shape of the uk)
+- how to implement
+	- access the grid through an x and y value, keeps most of the spatial dependence while helping produce a balanced dataset
+		- new problem: the UK is NOT rectangular
+	- calculations
+	- weighting
+	- how big do I do the grids? UK is 244376 km^2
+		- leaning 1km x 1km but that is LOTS of data for a single day and I want to look at years
+		- maybe 5x5 km^2 (25km^2)??????
+	- with land cover, just pick the most prevalent for the area (don't want to overcomplicate this)
+	- with pop density, use an average where required
+	- climate data, average where needed
+	- may require smoothing depending on data resolution
+	- wildfire data, maybe weight based off of confidence level, look into reasonable ways of doing that 
+		- want high confidences to carry more weight than low confidences
+- pros
+	- makes balanced dataset easier
+	- makes assigning other data factors easier
+	- makes assigning regional risk factors easier
+	- preserves spatial relationships while simplifying them
+	- mimics how map grid coords work on OS maps
+	- geopandas comes with a built in way to do this
+		- https://james-brennan.github.io/posts/fast_gridding_geopandas/
+- cons
+	- adds SO MANY datapoints that we don't really need, could 'flood out' the wildfires
+		- especially in a less prone area like the UK
+	- could cause problems with convolutional models as its not going to be an even grid without adding Even More data, essentially removes that option
+
+How to implement gridded system
+- make a grid based on whole country data
+- make a grid based on fire data
+- merge on common columns and use "outer join"
+- replace any and all NaN with 0
+- profit
+
+
+not using a gridded system
+- how to implement
+	- binary yes/no for fire
+	- confidence 100 for 'fake' non wildfire data
+	- 1.5x additional data
+	- random monte carlo selection
+- pros
+	- less data points, less likely to 'wash out' wildfire data
+	- preserves spatial relationships 
+	- much less data manipulation
+- cons
+	- would make risk prediction harder
+	- makes balanced dataset harder
+	- could provide an 'over sample' of the wildfire data, overrepresent it compared with normal data
+	- also not really suitable for convolution
+
+
+
+data processing and analysis
+- cleaning
+	- removal of incomplete or inaccurate data
+- timescale orienting
+	- convert to single day data, only want to deal with seasonal variations rather than day/night variations
+	- should make handling complexity and variation much easier	
+	- base temperature data on the peak temperature and not the average temperature
+- implement grid

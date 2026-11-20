@@ -5,3 +5,5 @@ https://cartopy.readthedocs.io/stable/getting_started/index.html
 
 can plot based off of latitude/longitude, useful!
 
+however geopandas has useful gridding capabilities, need to look into that also
+
